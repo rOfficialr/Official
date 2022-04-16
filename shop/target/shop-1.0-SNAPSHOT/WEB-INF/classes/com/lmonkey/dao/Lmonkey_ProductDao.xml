@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lmonkey.dao.Lmonkey_ProductDao">
+<!--    更新-->
+    <update id="update" parameterType="lmonkey_Product">
+        update lmonkey_product
+            set product_name=#{product_name},
+            product_description=#{product_description},
+            product_price=#{product_price},
+            product_stock=#{product_stock},
+            product_fid=#{product_fid},
+            product_cid=#{product_cid},
+            product_filename=#{product_filename}
+            where product_id=#{product_id}
+    </update>
+    <!--    查询全部-->
+    <select id="selectAll" resultType="com.lmonkey.domain.Lmonkey_Product">
+        select * from lmonkey_product
+    </select>
+    <!--    插入产品-->
+    <insert id="insert" parameterType="lmonkey_Product" >
+        insert into lmonkey_product
+        values (#{product_id},#{product_name},#{product_description},#{product_price},
+        #{product_stock},#{product_fid},#{product_cid},#{product_filename})
+    </insert>
+<!--    //根据父ID查询-->
+    <select id="selectByFid" resultType="com.lmonkey.domain.Lmonkey_Product" parameterType="Integer">
+        select * from lmonkey_product where product_fid=#{product_fid}
+    </select>
+    <!--    //根据子ID查询-->
+    <select id="selectByCid" resultType="com.lmonkey.domain.Lmonkey_Product" parameterType="Integer">
+        select * from lmonkey_product where product_cid=#{product_cid}
+    </select>
+    <!--    删除-->
+    <delete id="delete" parameterType="Integer">
+        delete from lmonkey_product where product_id=#{product_id}
+    </delete>
+
+<!--    通过ID查询-->
+    <select id="selectById" resultType="com.lmonkey.domain.Lmonkey_Product">
+        select * from lmonkey_product where product_id=#{product_id}
+    </select>
+</mapper>
