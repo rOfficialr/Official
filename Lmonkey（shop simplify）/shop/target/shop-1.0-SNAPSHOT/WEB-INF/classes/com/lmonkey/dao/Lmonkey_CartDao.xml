@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lmonkey.dao.Lmonkey_CartDao">
+<!--    插入购物车实体-->
+    <insert id="insert">
+        insert into lmonkey_cart
+        values (#{cart_id},#{cart_p_filename},
+                #{cart_p_name},#{cart_p_price},#{cart_quantity},
+                #{cart_p_stock},#{cart_p_id},#{cart_u_id},#{cart_valid})
+    </insert>
+
+    <!--    根据用户ID得到该ID下购物车所有信息-->
+    <select id="selectByUid" resultType="com.lmonkey.domain.Lmonkey_Cart">
+        select * from lmonkey_cart where cart_u_id=#{cart_u_id}
+    </select>
+
+    <!--    判断该商品在该用户的购物车中是否存在若存在只改变数量-->
+    <update id="update" >
+        update lmonkey_cart
+        set cart_quantity=#{cart_quantity}
+        where cart_u_id=#{cart_u_id} and cart_p_id=#{cart_p_id}
+    </update>
+
+    <!--    判断该商品在该用户的购物车中是否存在-->
+    <select id="selectByUidPid" resultType="com.lmonkey.domain.Lmonkey_Cart">
+        select * from lmonkey_cart
+        where cart_u_id=#{cart_u_id} and cart_p_id=#{cart_p_id}
+    </select>
+
+    <!--    根据购物车ID删除购物车中信息-->
+    <delete id="delete">
+        delete from lmonkey_cart where cart_id=#{cart_id}
+    </delete>
+
+    <!--    根据购物车ID查询-->
+    <select id="selectById" resultType="com.lmonkey.domain.Lmonkey_Cart">
+        select * from lmonkey_cart where cart_id=#{cart_id}
+    </select>
+
+</mapper>
